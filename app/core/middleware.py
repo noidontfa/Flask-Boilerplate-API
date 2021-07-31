@@ -1,14 +1,20 @@
 import traceback
 from functools import wraps
 
-from app.core.exceptions import GenericException, NotAuthenticateException
+from flask import request
+from marshmallow import ValidationError
+
+from app.core.exceptions import GenericException
+from app.core.models import User
+from app.core.services import CoreService
 
 
 def authenticate(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        raise NotAuthenticateException()
-        # return func(*args, **kwargs)
+        user_id = CoreService.get_user_identity()
+        request.user = User.query.get(user_id)
+        return func(*args, **kwargs)
 
     return wrapper
 
@@ -18,6 +24,9 @@ def wrap_exception(func):
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
+        except ValidationError as e:
+            traceback.print_exc()
+            return e.messages, 400
         except GenericException as e:
             traceback.print_exc()
             raise e

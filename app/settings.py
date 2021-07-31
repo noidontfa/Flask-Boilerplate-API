@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 from dotenv import load_dotenv
 
@@ -12,3 +13,11 @@ TESTING = os.environ.get("TESTING")
 SECRET_KEY = "this-really-needs-to-be-changed"
 SQLALCHEMY_DATABASE_URI = os.environ.get("SQLALCHEMY_DATABASE_URI")
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+# JWT_COOKIE_SECURE = os.environ.get("JWT_COOKIE_SECURE", default=False)
+JWT_SECRET_KEY = SECRET_KEY
+JWT_ACCESS_TOKEN_EXPIRES = timedelta(
+    minutes=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 300))
+)
+JWT_REFRESH_TOKEN_EXPIRES = timedelta(
+    minutes=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 300)) * 2
+)

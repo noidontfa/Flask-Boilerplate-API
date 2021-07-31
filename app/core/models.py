@@ -2,7 +2,7 @@ import uuid
 
 from sqlalchemy.dialects.postgresql import UUID
 
-from app import db
+from app.extensions import db
 
 
 class User(db.Model):

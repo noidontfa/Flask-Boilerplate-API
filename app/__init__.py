@@ -1,6 +1,13 @@
 from flask import Blueprint, Flask
-from flask_migrate import Migrate
-from flask_sqlalchemy import SQLAlchemy
+
+from app.extensions import db, jwt, ma, migrate
+
+
+def register_extensions(app):
+    db.init_app(app)
+    ma.init_app(app)
+    migrate.init_app(app, db)
+    jwt.init_app(app)
 
 
 def create_app(config="settings.py"):
@@ -9,6 +16,7 @@ def create_app(config="settings.py"):
     app.config.from_pyfile(config)
     from app.urls import initial_blueprint
 
+    register_extensions(app)
     v1_bp = Blueprint("v1", __name__, url_prefix="/v1")
     initial_blueprint(v1_bp)
     app.register_blueprint(v1_bp)
@@ -17,7 +25,3 @@ def create_app(config="settings.py"):
 
 
 app = create_app()
-db = SQLAlchemy(app)
-migrate = Migrate(app, db)
-
-from app import models

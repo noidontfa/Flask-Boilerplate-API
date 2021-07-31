@@ -9,8 +9,3 @@ class GenericException(HTTPException):
 
 class TestException(GenericException):
     status_code = 1001
-
-
-class NotAuthenticateException(GenericException):
-    status_code = 401
-    description = "Who Are You?"
