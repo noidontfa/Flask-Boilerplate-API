@@ -1,5 +1,6 @@
 from flask import request
 
+from app.core.exceptions import LoginException
 from app.core.models import User
 from app.core.resources import AllowAnyResource, AuthenticationResource
 from app.core.schemas import LoginSchema, UserSchema
@@ -13,6 +14,8 @@ class TokenResource(AllowAnyResource):
         schema_data = login_schema.load(data)
 
         user = User.query.filter_by(**schema_data).first()
+        if not user:
+            raise LoginException()
         result = CoreService.generate_user_token(user_id=user.id)
         return result, 200
 

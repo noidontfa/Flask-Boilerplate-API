@@ -7,5 +7,10 @@ class GenericException(HTTPException):
     description = "Something wrong!"
 
 
-class TestException(GenericException):
-    status_code = 1001
+class ValidationException(GenericException):
+    status_code = 1000
+
+
+class LoginException(GenericException):
+    status_code = 401
+    description = "Unable to log in with provided credentials."

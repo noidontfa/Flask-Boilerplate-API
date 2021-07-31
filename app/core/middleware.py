@@ -4,7 +4,7 @@ from functools import wraps
 from flask import request
 from marshmallow import ValidationError
 
-from app.core.exceptions import GenericException
+from app.core.exceptions import GenericException, ValidationException
 from app.core.models import User
 from app.core.services import CoreService
 
@@ -26,7 +26,7 @@ def wrap_exception(func):
             return func(*args, **kwargs)
         except ValidationError as e:
             traceback.print_exc()
-            return e.messages, 400
+            raise ValidationException(description=e.messages)
         except GenericException as e:
             traceback.print_exc()
             raise e
