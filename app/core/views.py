@@ -1,9 +1,7 @@
 from flask import request
 
-from app.core.exceptions import LoginException
-from app.core.models import User
 from app.core.resources import AllowAnyResource, AuthenticationResource
-from app.core.schemas import LoginSchema, UserSchema
+from app.core.schemas import LoginSchema, RegisterSchema, UserSchema
 from app.core.services import CoreService
 
 
@@ -11,11 +9,7 @@ class TokenResource(AllowAnyResource):
     def post(self, *args, **kwargs):
         data = request.get_json()
         login_schema = LoginSchema()
-        schema_data = login_schema.load(data)
-
-        user = User.query.filter_by(**schema_data).first()
-        if not user:
-            raise LoginException()
+        user = login_schema.load(data)
         result = CoreService.generate_user_token(user_id=user.id)
         return result, 200
 
@@ -33,3 +27,11 @@ class UserProfileResource(AuthenticationResource):
         user_schema = UserSchema()
         result = user_schema.dump(user)
         return result, 200
+
+
+class RegisterUserResource(AllowAnyResource):
+    def post(self, *args, **kwargs):
+        data = request.get_json()
+        user = RegisterSchema().load(data)
+        user.save()
+        return UserSchema().dump(user), 201

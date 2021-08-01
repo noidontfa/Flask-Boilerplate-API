@@ -1,6 +1,6 @@
 from flask import Blueprint, Flask
 
-from app.extensions import db, jwt, ma, migrate
+from app.extensions import bcrypt, db, jwt, ma, migrate
 
 
 def register_extensions(app):
@@ -8,6 +8,7 @@ def register_extensions(app):
     ma.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
+    bcrypt.init_app(app)
 
 
 def create_app(config="settings.py"):
