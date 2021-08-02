@@ -8,5 +8,5 @@ core_api = CoreAPI(core_bp)
 
 core_api.add_resource(views.TokenResource, "/token/")
 core_api.add_resource(views.RefreshTokenResource, "/token/refresh/")
-core_api.add_resource(views.UserProfileResource, "/profile")
-core_api.add_resource(views.RegisterUserResource, "/register")
+core_api.add_resource(views.UserProfileResource, "/profile/")
+core_api.add_resource(views.RegisterUserResource, "/register/")

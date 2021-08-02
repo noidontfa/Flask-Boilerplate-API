@@ -1,5 +1,9 @@
 # FLASK BOILERPLATE API PROJECT
 
+
+## Swagger URL
+http://localhost:5000/api/docs/
+
 ## Pre-commit
 ```
 pre-commit install

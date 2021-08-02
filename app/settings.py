@@ -21,3 +21,5 @@ JWT_ACCESS_TOKEN_EXPIRES = timedelta(
 JWT_REFRESH_TOKEN_EXPIRES = timedelta(
     minutes=int(os.environ.get("JWT_ACCESS_TOKEN_EXPIRES", 300)) * 2
 )
+SWAGGER_URL = os.environ.get("SWAGGER_URL", "/api/docs")
+SWAGGER_API_URL = os.environ.get("SWAGGER_API_URL", "/v1/static/swagger.yaml")

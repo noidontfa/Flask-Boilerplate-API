@@ -7,7 +7,7 @@ from app.core.services import CoreService
 
 class TokenResource(AllowAnyResource):
     def post(self, *args, **kwargs):
-        data = request.get_json()
+        data = request.get_json(force=True)
         login_schema = LoginSchema()
         user = login_schema.load(data)
         result = CoreService.generate_user_token(user_id=user.id)
@@ -31,7 +31,7 @@ class UserProfileResource(AuthenticationResource):
 
 class RegisterUserResource(AllowAnyResource):
     def post(self, *args, **kwargs):
-        data = request.get_json()
+        data = request.get_json(force=True)
         user = RegisterSchema().load(data)
         user.save()
         return UserSchema().dump(user), 201
