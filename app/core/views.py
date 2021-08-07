@@ -1,7 +1,13 @@
 from flask import request
 
 from app.core.resources import AllowAnyResource, AuthenticationResource
-from app.core.schemas import LoginSchema, RegisterSchema, UserSchema
+from app.core.schemas import (
+    LoginSchema,
+    RegisterSchema,
+    ResendEmailSchema,
+    UserSchema,
+    VerificationSchema,
+)
 from app.core.services import CoreService
 
 
@@ -33,5 +39,18 @@ class RegisterUserResource(AllowAnyResource):
     def post(self, *args, **kwargs):
         data = request.get_json(force=True)
         user = RegisterSchema().load(data)
-        user.save()
         return UserSchema().dump(user), 201
+
+
+class VerifyUserResource(AllowAnyResource):
+    def post(self, *args, **kwargs):
+        data = request.get_json(force=True)
+        token = VerificationSchema().load(data)
+        return token, 200
+
+
+class ResendVerifyUserEmail(AllowAnyResource):
+    def post(self, *args, **kwargs):
+        data = request.get_json(force=True)
+        ResendEmailSchema().load(data)
+        return "Sent", 200

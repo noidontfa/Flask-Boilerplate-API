@@ -14,3 +14,13 @@ class ValidationException(GenericException):
 class LoginException(GenericException):
     status_code = 401
     description = "Unable to log in with provided credentials."
+
+
+class VerificationException(GenericException):
+    status_code = 400
+    description = "Unable to verify with provided credentials."
+
+
+class ResendEmailException(GenericException):
+    status_code = 400
+    description = "User is verified"

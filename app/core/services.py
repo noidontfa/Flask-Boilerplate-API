@@ -5,6 +5,9 @@ from flask_jwt_extended import (
     jwt_required,
 )
 
+from app.core.models import User
+from app.core.utils import send_mail
+
 
 class CoreService:
     @classmethod
@@ -21,3 +24,10 @@ class CoreService:
 
         user_id = identify()
         return user_id
+
+    @classmethod
+    def send_register_email(cls, user: User):
+        subject = "Register"
+        template_name = "register/register.html"
+        context = dict(key=user.email_address.key, username=user.name)
+        send_mail(subject, template_name, context, user.email)

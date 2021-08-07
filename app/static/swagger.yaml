@@ -7,14 +7,16 @@ info:
   termsOfService: "http://swagger.io/terms/"
   contact:
     email: "thinhngo1198@gmail.com"
-host: ""
+host: "localhost:5000"
 basePath: "/v1"
 tags:
 - name: "User"
   description: "Operations about user"
 schemes:
-- "http"
 - "https"
+- "http"
+servers:
+  "/"
 paths:
   /token/:
     post:
@@ -100,6 +102,59 @@ paths:
           description: ""
           schema:
             $ref: "#/definitions/User"
+  /register/verify/:
+    post:
+      tags:
+      - "User"
+      summary: ""
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - email
+          - key
+          properties:
+            email:
+              type: string
+            key:
+              type: string
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/JwtObject"
+  /register/resend/:
+    post:
+      tags:
+      - "User"
+      summary: ""
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - email
+          properties:
+            email:
+              type: string
+      responses:
+        200:
+          description: "Sent"
   /profile/:
     get:
       tags:
