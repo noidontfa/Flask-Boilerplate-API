@@ -155,6 +155,63 @@ paths:
       responses:
         200:
           description: "Sent"
+  /password/reset/:
+    post:
+      tags:
+      - "User"
+      summary: ""
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "text"
+      parameters:
+      - in: body
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - email
+          properties:
+            email:
+              type: string
+      responses:
+        200:
+          description: "Sent"
+  /passowrd/reset/confirm/:
+    post:
+      tags:
+        - "User"
+      summary: ""
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "text"
+      parameters:
+      - in: body
+        name: body
+        description: ""
+        schema:
+          type: object
+          required:
+          - key
+          - email
+          - new_password1
+          - new_password2
+          properties:
+            key:
+              type: string
+            email:
+              type: string
+            new_password1:
+              type: string
+            new_password2:
+              type: string
+      responses:
+        200:
+          description: "Reset successfully"
   /profile/:
     get:
       tags:
