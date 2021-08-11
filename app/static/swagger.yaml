@@ -175,6 +175,7 @@ paths:
 securityDefinitions:
  Bearer:
     type: apiKey
+    description: "Bearer + apiKey"
     name: Authorization
     in: header
 definitions:

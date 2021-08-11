@@ -28,6 +28,13 @@ class CoreService:
     @classmethod
     def send_register_email(cls, user: User):
         subject = "Register"
-        template_name = "register/register.html"
+        template_name = "user/register.html"
         context = dict(key=user.email_address.key, username=user.name)
+        send_mail(subject, template_name, context, user.email)
+
+    @classmethod
+    def send_reset_password(cls, user: User):
+        subject = "Reset Password"
+        template_name = "user/reset_password.html"
+        context = dict(key=user.reset_password.key, username=user.name)
         send_mail(subject, template_name, context, user.email)

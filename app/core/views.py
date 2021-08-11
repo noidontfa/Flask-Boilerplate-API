@@ -5,6 +5,8 @@ from app.core.schemas import (
     LoginSchema,
     RegisterSchema,
     ResendEmailSchema,
+    ResetPasswordSchema,
+    SendResetPasswordSchema,
     UserSchema,
     VerificationSchema,
 )
@@ -49,8 +51,22 @@ class VerifyUserResource(AllowAnyResource):
         return token, 200
 
 
-class ResendVerifyUserEmail(AllowAnyResource):
+class ResendVerifyUserEmailResource(AllowAnyResource):
     def post(self, *args, **kwargs):
         data = request.get_json(force=True)
         ResendEmailSchema().load(data)
         return "Sent", 200
+
+
+class SendResetPasswordResource(AllowAnyResource):
+    def post(self, *args, **kwargs):
+        data = request.get_json(force=True)
+        SendResetPasswordSchema().load(data)
+        return "Sent", 200
+
+
+class ResetPasswordResource(AllowAnyResource):
+    def post(self, *args, **kwargs):
+        data = request.get_json(force=True)
+        ResetPasswordSchema().load(data)
+        return "Reset Successfully", 200

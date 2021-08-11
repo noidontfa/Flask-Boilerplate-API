@@ -24,3 +24,13 @@ class VerificationException(GenericException):
 class ResendEmailException(GenericException):
     status_code = 400
     description = "User is verified"
+
+
+class UserNotExistException(GenericException):
+    status_code = 400
+    description = "User is not exist"
+
+
+class UserNotFoundException(GenericException):
+    status_code = 400
+    description = "User is not founded"
